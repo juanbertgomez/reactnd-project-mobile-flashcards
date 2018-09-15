@@ -1,13 +1,41 @@
-import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import React from 'react';
+import { Text, View } from 'react-native';
 
-class Decks extends Component {
+const deckData = {
+  React: {
+    title: 'React',
+    questions: [
+      {
+        question: 'What is React?',
+        answer: 'A library for managing user interfaces',
+      },
+      {
+        question: 'Where do you make Ajax requests in React?',
+        answer: 'The componentDidMount lifecycle event',
+      },
+    ],
+  },
+  JavaScript: {
+    title: 'JavaScript',
+    questions: [
+      {
+        question: 'What is a closure?',
+        answer:
+          'The combination of a function and the lexical environment within which that function was declared.',
+      },
+    ],
+  },
+};
 
-    render() {
-        return (
-            <View>
-                <Text> Hello Deck</Text>
-            </View>
-        )
-    }
-}
+const Decks = () => (
+  <View>
+    <Text>Welcome to Mobile Flashcards!</Text>
+    <Text>What do you want to learn today?</Text>
+    {Object.keys(deckData).map((key) => {
+      const { title } = deckData[key];
+      return <Text key={title}>{title}</Text>;
+    })}
+  </View>
+);
+
+export default Decks;
