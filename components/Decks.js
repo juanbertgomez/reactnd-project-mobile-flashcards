@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, StyleSheet, Platform } from 'react-native'
 import { fetchDecksResults } from '../utils/api'
+import { receiveDecks } from '../actions'
+import { connect } from 'react-redux'
+import DeckHeader from './DeckHeader'
+import { white } from '../utils/colors'
 
 class Decks extends Component {
   state = {
@@ -28,24 +32,71 @@ class Decks extends Component {
           },
         ],
       },
-    }    
+    },
+    ready: false    
+  }
+
+  componentDidMount () {
+      const { dispatch } = this.props
+
+      fetchDecksResults()
+          .then((decks) => dispatch(receiveDecks(decks)))
+          .then(()=> this.setState(() =>({ready: true})))
   }
 
   render() {
       const { deckData } = this.state
+      const { decks, questions } = this.props
     return (  
       <View>
-      <Text>Welcome to Mobile Flashcards!</Text>
-      <Text>What do you want to learn today?</Text>
       {Object.keys(deckData).map((key) => {
-        const { title } = deckData[key];
-        return <Text key={title}>Title: {title}</Text>
+        const { title, questions } = deckData[key]
+        return(
+          <View style={styles.item} key = {key}>
+              <DeckHeader deckHeader={title}/>
+              <Text style={styles.noDataText}>
+                {questions[0].question}
+              </Text>
+          </View>
+          )
       })}
+
     </View>
 
     )
   }
 }
 
+const styles = StyleSheet.create({
+  item: {
+    backgroundColor: white,
+    borderRadius: Platform.OS === 'ios' ? 16 : 2,
+    padding: 20,
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 17,
+    justifyContent: 'center',
+    shadowRadius: 3,
+    shadowOpacity: 0.8,
+    shadowColor: 'rgba(0, 0, 0, 0.24)',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+  },
+  noDataText: {
+    fontSize: 20,
+    paddingTop: 20,
+    paddingBottom: 20
+  }
+})
 
-export default Decks
+function mapStateToProps(decks) {
+  return {
+    decks
+  }
+}
+
+
+
+export default connect(mapStateToProps)(Decks)

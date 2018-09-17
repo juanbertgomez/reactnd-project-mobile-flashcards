@@ -2,7 +2,7 @@ export const DECKS_STORAGE_KEY = 'mobileFlashCards:Deck'
 
 export const initialDecksData = {
     React: {
-      title: 'React',
+      title: 'React from Decks.js',
       questions: [
         {
           question: 'What is React?',
@@ -15,7 +15,7 @@ export const initialDecksData = {
       ],
     },
     JavaScript: {
-      title: 'JavaScript',
+      title: 'JavaScript from Decks.js',
       questions: [
         {
           question: 'What is a closure?',
