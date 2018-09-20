@@ -1,6 +1,12 @@
-export const DECKS_STORAGE_KEY = 'mobileFlashCards:Deck'
 
-export const initialDecksData = {
+import { AsyncStorage } from 'react-native'
+
+export const STORAGE_KEY = 'MobileFlashCards:deck'
+
+function setDummyData () {
+
+
+  let initialDecksData = {
     React: {
       title: 'React from Decks.js',
       questions: [
@@ -24,5 +30,16 @@ export const initialDecksData = {
         },
       ],
     },
-  };
-  
+  }
+
+  AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(initialDecksData))
+
+  return initialDecksData
+}
+
+
+export function decksResults (results) {
+  return results === null
+    ? setDummyData()
+    : {1 : 'no data'}
+}

@@ -1,7 +1,8 @@
 import {AsyncStorage} from 'react-native'
-import {initialDecksData, DECKS_STORAGE_KEY} from './_decks'
+import {decksResults, DECKS_STORAGE_KEY} from './_DATA'
 
-export function fetchDecksResults(){
+
+export function fetchDecksResults (){
     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-        .then(initialDecksData)
-}
+      .then(decksResults)
+  }

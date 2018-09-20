@@ -8,31 +8,6 @@ import { white } from '../utils/colors'
 
 class Decks extends Component {
   state = {
-    deckData : {
-      1: {
-        title: 'React from state',
-        questions: [
-          {
-            question: 'What is React?',
-            answer: 'A library for managing user interfaces',
-          },
-          {
-            question: 'Where do you make Ajax requests in React?',
-            answer: 'The componentDidMount lifecycle event',
-          },
-        ],
-      },
-      2: {
-        title: 'JavaScript from state',
-        questions: [
-          {
-            question: 'What is a closure?',
-            answer:
-              'The combination of a function and the lexical environment within which that function was declared.',
-          },
-        ],
-      },
-    },
     ready: false    
   }
 
@@ -49,18 +24,16 @@ class Decks extends Component {
       const { decks, questions } = this.props
     return (  
       <View>
-      {Object.keys(deckData).map((key) => {
-        const { title, questions } = deckData[key]
+      {Object.keys(decks).map((key) => {
         return(
           <View style={styles.item} key = {key}>
-              <DeckHeader deckHeader={title}/>
+              <DeckHeader deckHeader={decks[key].title}/>
               <Text style={styles.noDataText}>
-                {questions[0].question}
+                {decks[key].questions[0].question}
               </Text>
           </View>
           )
       })}
-
     </View>
 
     )
