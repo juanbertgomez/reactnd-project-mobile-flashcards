@@ -7,8 +7,24 @@ export function fetchDecksResults (){
       .then(decksResults)
   }
 
-export function submitDeck({ title }) {
- return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-     [title]: [] 
+export function submitDeck({ title, questions }) {
+ return AsyncStorage.mergeItem('MobileFlashCards:deck', JSON.stringify({
+     title, questions
  }))
 }
+
+export function submitQuestion(key, question, answer) {
+    let newQuestion = {
+      question: question,
+      answer: answer
+    }
+  
+    return fetchQuestions().then(questions => {
+        return AsyncStorage.setItem(
+          QUESTIONS_STORAGE_KEY,
+          JSON.stringify({
+            [key]: newQuestion
+          })
+        )
+    })
+  }

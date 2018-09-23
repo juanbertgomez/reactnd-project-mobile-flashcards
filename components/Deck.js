@@ -17,16 +17,12 @@ class Deck extends React.Component {
     }
 
     render() {
-        const {decks, deck, key} = this.props.navigation.state.params
+        const {decks, deck, navigation} = this.props
         const {animate} = this.state
+        const { key } = navigation.state.params 
 
         return (
             <Animated.View style={[styles.item, {...this.props.style, opacity: animate}]}>
-                <View>
-                    <Text style={styles.fonts}>Hello</Text>
-                    <Text style={styles.fonts2}>2 Cards</Text>
-
-                </View>
                 <Button 
                     style={styles.buttons} 
                     title="Start Quiz" 
@@ -35,7 +31,7 @@ class Deck extends React.Component {
                     Quiz</Button>
                 <Text style={styles.fonts2}>Or</Text>
                 <Button title='Add Question'
-                        onPress={() => this.props.navigation.navigate('AddCard', {deck: deck, decks: decks})}>Add
+                        onPress={() => this.props.navigation.navigate('AddCard', {deck: deck, decks: decks, key: key})}>Add
                     Question To Deck</Button>
             </Animated.View>
 

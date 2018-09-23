@@ -29,11 +29,12 @@ class Decks extends Component {
           <TouchableOpacity style={styles.item} key = {key} onPress={() => this.props.navigation.navigate('Deck', {key: key})}>
               <DeckHeader deckHeader={decks[key].title}/>
               <Text style={styles.Text}>
-                {decks[key].questions[0].question}
+                # of questions: {decks[key].questions.length}
               </Text>
-          </TouchableOpacity>
-          )
-      })}
+              </TouchableOpacity>
+              )
+            })}
+
     </View>
 
     )

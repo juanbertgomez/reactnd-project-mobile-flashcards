@@ -1,45 +1,45 @@
-import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Button, TextInput, Platform} from 'react-native';
-import {saveDecks} from '../utils/_DATA';
-import { white } from '../utils/colors'
+import React from 'react'
+import {View, Text, StyleSheet, TouchableOpacity, Button, TextInput, Platform} from 'react-native'
+import {saveDecks} from '../utils/_DATA'
+import { white, purple } from '../utils/colors'
+import { addQuestion } from '../actions'
+import { connect } from 'react-redux'
 
 class AddCard extends React.Component {
     state = {
         question: '',
         answer: ''
-    };
+    }
 
     createCard = () => {
-        const {deck, decks} = this.props.navigation.state.params;
+        const { key } = this.props.navigation.state.params
+        const { title } = this.props.deck.title
+        const {question, answer} = this.state
 
-        const {question, answer} = this.state;
+        if (question != '' && answer!='') {
+            this.props.dispatch(addQuestion({key, title, question, answer}))
+        }
 
-        deck.questions.push({question: question, answer: answer});
-
-        saveDecks(decks);
-
-        this.props.navigation.navigate('Decks');
-    };
+        this.props.navigation.navigate('Decks')
+    }
 
 
     render() {
 
-        const {question, answer} = this.state;
+        const {question, answer} = this.state
 
         return (
             <View style={styles.item}>
-                <Text style={styles.fonts2}>Add a new Card to this Deck</Text>
-
                 <Text>Add a question</Text>
                 <TextInput value={question} onChangeText={(question) => this.setState({question})}/>
                 <Text>Add an answer to your question</Text>
                 <TextInput value={answer} onChangeText={(answer) => this.setState({answer})}/>
-                <TouchableOpacity>
-                    <Text onPress={this.createCard}>Submit</Text>
+                <TouchableOpacity style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}>
+                    <Text style={styles.submitBtnText} onPress={this.createCard}>Submit</Text>
                 </TouchableOpacity>
             </View>
         )
-    };
+    }
 }
 
 const styles = StyleSheet.create({
@@ -75,7 +75,43 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         alignContent: 'space-between',
         color: 'green'
-    }
-});
+    },
+    iosSubmitBtn: {
+        backgroundColor: purple,
+        padding: 10,
+        borderRadius: 7,
+        height: 45,
+        marginLeft: 40,
+        marginRight: 40,
+      },
+      AndroidSubmitBtn: {
+        backgroundColor: purple,
+        padding: 10,
+        paddingLeft: 30,
+        paddingRight: 30,
+        height: 45,
+        borderRadius: 2,
+        alignSelf: 'flex-end',
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      submitBtnText: {
+        color: white,
+        fontSize: 22,
+        textAlign: 'center',
+      }
+})
 
-export default  AddCard;
+function mapStateToProps(decks, {navigation}) {
+    const { key } = navigation.state.params 
+    
+    return {
+        key,
+        deck : decks[key],
+        decks
+    }
+  }
+  
+  
+  
+export default connect(mapStateToProps)(AddCard)

@@ -5,6 +5,7 @@ import { submitDeck } from '../utils/api'
 import { white, purple } from '../utils/colors'
 import { connect } from 'react-redux'
 import DeckHeader from './DeckHeader'
+import { NavigationActions } from 'react-navigation'
 
 function SubmitBtn ({ onPress }) {
     return (
@@ -23,12 +24,18 @@ class AddDeck extends Component  {
 
     submit = () => {
         const title = this.state
-    
+        
         if (title != '') {
-            this.props.addDeck
+            this.props.dispatch(addDeck({ title
+                 }))
         }
         // Navigate to home
-        this.toHome()
+        this.props.navigation.navigate('Decks')
+        submitDeck({title})
+      }
+
+      toHome = () => {
+        this.props.navigation.dispatch(NavigationActions.back({key: 'Decks'}))
       }
 
     render() {
@@ -112,25 +119,4 @@ function mapStateToProps(decks) {
   }
   
   
-  
-  function mapDispatchToProps(dispatch, { navigation }) {
-    return {
-      createDeck: deckName => {
-        submitDeck(deckName)
-          .then(() => {
-            fetchDecksResults()
-              .then(decks => {
-                dispatch(setDecks(decks))
-                navigation.goBack()
-              })
-              .catch(e => {
-                console.log(e)
-              })
-          })
-          .catch(e => {
-            console.log(e)
-          })
-      }
-    }
-  }
-  export default connect(false, mapDispatchToProps)(NewDeckScreen)
+export default connect(mapStateToProps)(AddDeck)
