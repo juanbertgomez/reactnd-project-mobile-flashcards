@@ -38,6 +38,11 @@ function setDummyData () {
 }
 
 
+export function saveDecks(decks) {
+  AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks));
+}
+
+
 export function decksResults (results) {
   return results === null
     ? setDummyData()

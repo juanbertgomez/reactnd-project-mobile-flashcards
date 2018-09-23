@@ -1,10 +1,10 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
-import { FontAwesome } from '@expo/vector-icons';
-import Decks from '../components/Decks';
-import CreateQuiz from '../components/CreateQuiz';
-import Settings from '../components/Settings';
+import React from 'react'
+import { Platform } from 'react-native'
+import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation'
+import { FontAwesome } from '@expo/vector-icons'
+import Decks from '../components/Decks'
+import CreateQuiz from '../components/CreateQuiz'
+import Settings from '../components/Settings'
 
 export const Tabs = createMaterialTopTabNavigator(
   {
@@ -55,7 +55,7 @@ export const Tabs = createMaterialTopTabNavigator(
       },
     },
   }
-);
+)
 
 export const MainNavigator = createStackNavigator({
   Home: {
@@ -70,4 +70,4 @@ export const MainNavigator = createStackNavigator({
       },
     },
   },
-});
+})

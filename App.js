@@ -4,11 +4,16 @@ import { createBottomTabNavigator, createStackNavigator } from 'react-navigation
 import { Provider } from 'react-redux'
 import { Constants } from 'expo'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
-import Decks from './components/Decks'
-import AddQuiz from './components/AddQuiz'
 import { createStore } from 'redux'
 import { purple, white } from './utils/colors'
 import reducer from './reducers'
+import Decks from './components/Decks'
+import Deck from './components/Deck'
+import AddDeck from './components/AddDeck'
+import Questions from './components/Questions'
+import Answer from './components/Answer'
+import AddCard from './components/AddCard'
+
 
 function CardsStatusBar ({backgroundColor, ...props}){
   return (
@@ -26,8 +31,8 @@ const Tabs = createBottomTabNavigator({
       tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
     },
   },
-  AddQuiz: {
-    screen: AddQuiz,
+  AddDeck: {
+    screen: AddDeck,
     navigationOptions: {
       tabBarLabel: 'Add Deck',
       tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
@@ -60,6 +65,24 @@ const MainNavigator = createStackNavigator({
     navigationOptions: {
       header: null
     }
+  },
+  Deck: {
+    screen: Deck,
+    navigationOptions: {
+      header: null
+    }
+  },
+  AddDeck: {
+    screen: AddDeck
+  },
+  Questions: {
+    screen: Questions
+  },
+  Answer: {
+    screen: Answer
+  },
+  AddCard: {
+    screen: AddCard
   }
 })
 
