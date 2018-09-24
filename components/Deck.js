@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Platform, Animated} from 'react-native'
 import {Button} from 'react-native'
 import { connect } from 'react-redux'
 import { white } from '../utils/colors'
+import DeckHeader from './DeckHeader'
 
 
 class Deck extends React.Component {
@@ -23,6 +24,10 @@ class Deck extends React.Component {
 
         return (
             <Animated.View style={[styles.item, {...this.props.style, opacity: animate}]}>
+                <DeckHeader deckHeader={deck.title}/>
+                <Text style={styles.Text}>
+                    # of questions: {deck.questions.length}
+                </Text>  
                 <Button 
                     style={styles.buttons} 
                     title="Start Quiz" 

@@ -11,26 +11,26 @@ import {
 
 class Questions extends React.Component {
     state = {
-        i: 0
+        score: 0
     }
 
-    correctAnswer = (i) => {
-        this.props.questions[this.state.i].correct = true
-        i = i + 1
-        this.setState({i: i})
+    correctAnswer = (score) => {
+        this.props.questions[this.state.score].correct = true
+        score = score + 1
+        this.setState({score: score})
 
     }
 
-    incorrectAnswer = (i) => {
-        this.props.questions[this.state.i].correct = false
-        i = i + 1
-        this.setState({i: i})
+    incorrectAnswer = (score) => {
+        this.props.questions[this.state.score].correct = false
+        score = score + 1
+        this.setState({score: score})
     }
 
-    restartQuiz = (i) => {
-        i = 0
+    restartQuiz = (score) => {
+        score = 0
         this.setState({
-            i:i
+            score: score
         })
     }
 
@@ -40,9 +40,9 @@ class Questions extends React.Component {
 
         const {questions} = this.props
 
-        let i = this.state.i
+        let score = this.state.score
 
-        if (questions.length === i) {
+        if (questions.length === score) {
             clearLocalNotification()
                 .then(setLocalNotification)
             return (
@@ -50,7 +50,7 @@ class Questions extends React.Component {
                     <Text style={{fontSize:28}}> Your result is {questions.filter(q => q.correct).length}</Text>
                     <Text>You can restart the quiz by going back to deck</Text>
                     <Button title='Back to Deck' onPress={()=> this.props.navigation.goBack()}>Back</Button>
-                    <Button title='Restart Quiz' onPress={() =>this.restartQuiz(i)}>Back</Button>
+                    <Button title='Restart Quiz' onPress={() =>this.restartQuiz(score)}>Back</Button>
                 </View>
             )
         }
@@ -59,18 +59,15 @@ class Questions extends React.Component {
             <View style={styles.container}>
 
                 <View>
-                    {/*     {questions.map((question, i)=> {
-                     return (<Text key={i}>{question.question}</Text>)
-                     })}*/}
-                    <Text style={styles.fonts}>{questions[i].question}</Text>
+                    <Text style={styles.fonts}>{questions[score].question}</Text>
                     <Button title='Show Answer'
-                            onPress={() => this.props.navigation.navigate('Answer', {answer: questions[i].answer})}>Show
+                            onPress={() => this.props.navigation.navigate('Answer', {answer: questions[score].answer})}>Show
                         Answer</Button>
                 </View>
                 <Text>Do you know the answer?</Text>
                 <View style={{flexDirection: 'row'}}>
-                    <Button style={[styles.buttons, {marginRight: 50}]} onPress={() => this.correctAnswer(i)} title='correct'>Correct</Button>
-                    <Button style={styles.buttons} onPress={() =>this.incorrectAnswer(i)} title='incorrect'>Incorrect</Button>
+                    <Button style={[styles.buttons, {marginRight: 50}]} onPress={() => this.correctAnswer(score)} title='correct'>Correct</Button>
+                    <Button style={styles.buttons} onPress={() =>this.incorrectAnswer(score)} title='incorrect'>Incorrect</Button>
                 </View>
 
 

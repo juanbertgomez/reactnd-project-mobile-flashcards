@@ -94,7 +94,7 @@ export default class App extends React.Component {
         <View style={{ flex: 1 }}>
           <CardsStatusBar backgroundColor= {purple} barStyle="light-content" />
           <MainNavigator />
-        </View>
+          </View>
       </Provider>
     )
   }
